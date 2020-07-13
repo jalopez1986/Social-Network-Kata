@@ -1,4 +1,4 @@
-package com.feature;
+package com.jlopez;
 
 public class TimelineRepository {
 

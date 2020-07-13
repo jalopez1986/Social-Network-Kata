@@ -1,4 +1,4 @@
-package com.feature;
+package com.jlopez.domain;
 
 public interface Users {
     boolean exist(String username);
