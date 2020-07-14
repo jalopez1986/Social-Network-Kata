@@ -18,11 +18,10 @@ public class InMemoryPosts implements Posts {
 
     @Override
     public void addPost(String username, String message) {
-        List<Post> userPosts;
+        List<Post> userPosts = new ArrayList<>();
+
         if (posts.containsKey(username)) {
             userPosts = posts.get(username);
-        } else {
-            userPosts = new ArrayList<>();
         }
 
         Post post = new Post(message);
