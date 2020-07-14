@@ -6,14 +6,15 @@ import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class InMemoryPosts implements Posts {
 
-    HashMap<String, List<Post>> posts;
+    LinkedHashMap<String, List<Post>> posts;
 
     public InMemoryPosts() {
-        posts = new HashMap<>();
+        posts = new LinkedHashMap<>();
     }
 
     @Override
