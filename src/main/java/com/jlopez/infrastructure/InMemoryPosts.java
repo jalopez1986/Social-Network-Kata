@@ -4,6 +4,7 @@ import com.jlopez.domain.Post;
 import com.jlopez.domain.Posts;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -31,6 +32,10 @@ public class InMemoryPosts implements Posts {
 
     @Override
     public List<Post> getAllByUsername(String username) {
+        if (posts.get(username) == null) {
+            return Collections.emptyList();
+        }
+
         return posts.get(username);
     }
 }
