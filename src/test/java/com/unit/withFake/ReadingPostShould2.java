@@ -1,4 +1,4 @@
-package com.acceptance;
+package com.unit.withFake;
 
 import com.jlopez.actions.GetUserPosts;
 import com.jlopez.domain.Post;
@@ -9,14 +9,16 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class ReadingPostShould2 {
 
-    public static final String ANY_USERNAME = "anyUsername";
-    public static final String FIRST_MESSAGE = "firstMessage";
-    public static final String SECOND_MESSAGE = "secondMessage";
+    private static final String ANY_USERNAME = "anyUsername";
+    private static final String FIRST_MESSAGE = "firstMessage";
+    private static final String SECOND_MESSAGE = "secondMessage";
+
+    private Post firstPost;
+    private Post secondPost;
 
     Posts inMemoryRepository;
 
@@ -28,15 +30,22 @@ public class ReadingPostShould2 {
 
         List<Post> userPosts = getUserPosts.execute(ANY_USERNAME);
 
-        assertThat(userPosts.get(0).getMessage()).isEqualTo(FIRST_MESSAGE);
-        assertThat(userPosts.get(1).getMessage()).isEqualTo(SECOND_MESSAGE);
+        assertThat(userPosts.get(0)).isEqualTo(firstPost);
+        assertThat(userPosts.get(1)).isEqualTo(secondPost);
     }
 
     private Posts given_a_posts_repository_with_a_user_with_2_posts() {
         inMemoryRepository = new InMemoryPosts();
-        inMemoryRepository.addPost(ANY_USERNAME, FIRST_MESSAGE);
-        inMemoryRepository.addPost(ANY_USERNAME, SECOND_MESSAGE);
+        firstPost = givenAPostWithThisMessage(FIRST_MESSAGE);
+        secondPost = givenAPostWithThisMessage(SECOND_MESSAGE);
 
-        return  inMemoryRepository;
+        inMemoryRepository.addPost(ANY_USERNAME, firstPost);
+        inMemoryRepository.addPost(ANY_USERNAME, secondPost);
+
+        return inMemoryRepository;
+    }
+
+    private Post givenAPostWithThisMessage(String message) {
+        return new Post(message);
     }
 }

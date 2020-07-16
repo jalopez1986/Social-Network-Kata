@@ -2,10 +2,8 @@ package com.jlopez.infrastructure;
 
 import com.jlopez.domain.Post;
 import com.jlopez.domain.Posts;
-import javafx.geometry.Pos;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -18,18 +16,18 @@ public class InMemoryPosts implements Posts {
     }
 
     @Override
-    public void addPost(String username, String message) {
+    public void addPost(String username, Post post) {
         List<Post> userPosts = new ArrayList<>();
 
         if (posts.containsKey(username)) {
             userPosts = posts.get(username);
         }
 
-        Post post = new Post(message);
         userPosts.add(post);
 
         posts.put(username, userPosts);
     }
+
 
     @Override
     public List<Post> getAllByUsername(String username) {

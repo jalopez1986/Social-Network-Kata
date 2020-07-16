@@ -1,4 +1,4 @@
-package com.acceptance;
+package com.unit;
 
 import com.jlopez.actions.FollowAUser;
 import com.jlopez.domain.Users;

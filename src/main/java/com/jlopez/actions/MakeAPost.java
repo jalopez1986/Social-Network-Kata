@@ -1,6 +1,8 @@
 package com.jlopez.actions;
 
+import com.jlopez.domain.Post;
 import com.jlopez.domain.Posts;
+import javafx.geometry.Pos;
 
 public class MakeAPost {
 
@@ -13,6 +15,7 @@ public class MakeAPost {
     }
 
     public void execute(String username, String message) {
-        posts.addPost(username, message);
+        Post post = new Post(message);
+        posts.addPost(username, post);
     }
 }

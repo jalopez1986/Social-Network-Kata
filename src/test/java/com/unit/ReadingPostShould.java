@@ -1,4 +1,4 @@
-package com.acceptance;
+package com.unit;
 
 import com.jlopez.actions.GetUserPosts;
 import com.jlopez.domain.Post;
@@ -17,13 +17,14 @@ import static org.mockito.Mockito.verify;
 public class ReadingPostShould {
 
     @Mock Posts postsRepository;
+    public static final String ANY_USERNAME = "anyUser";
 
     @Test
     public void a_user_can_view_the_posts_of_other_user() {
         GetUserPosts getUserPosts = new GetUserPosts(postsRepository);
 
-        List<Post> userPosts = getUserPosts.execute("username");
+        List<Post> userPosts = getUserPosts.execute(ANY_USERNAME);
 
-        verify(postsRepository,times(1)).getAllByUsername("username");
+        verify(postsRepository,times(1)).getAllByUsername(ANY_USERNAME);
     }
 }

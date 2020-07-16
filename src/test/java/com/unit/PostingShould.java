@@ -1,12 +1,18 @@
-package com.acceptance;
+package com.unit;
 
 import com.jlopez.actions.MakeAPost;
+import com.jlopez.domain.Post;
 import com.jlopez.domain.Posts;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -17,6 +23,8 @@ public class PostingShould {
     public static final String ANY_MESSAGE = "message";
 
     @Mock Posts posts;
+    @Captor ArgumentCaptor<Post> argument;
+
     private MakeAPost makeAPost;
 
     @Test
@@ -25,7 +33,8 @@ public class PostingShould {
 
         makeAPost.execute(ANY_USERNAME, ANY_MESSAGE);
 
-        verify(posts, times(1)).addPost(ANY_USERNAME, ANY_MESSAGE);
+        verify(posts, times(1)).addPost(eq(ANY_USERNAME), argument.capture());
+        assertThat(argument.getValue().getMessage()).isEqualTo(ANY_MESSAGE);
 
     }
 
