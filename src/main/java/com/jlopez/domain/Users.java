@@ -1,9 +1,9 @@
 package com.jlopez.domain;
 
-public interface Users {
-    boolean exist(String username);
+import java.util.Optional;
 
+public interface Users {
     void save(User user);
 
-    User get(String username);
+    Optional<User> tryGet(String username);
 }

@@ -12,12 +12,11 @@ public class FollowAUser {
     }
 
     public void execute(String username, String usernameToFollow) {
-        User user = users.get(username);
-        User followee = users.get(usernameToFollow);
+        User user = users.tryGet(username).orElseThrow(User.UserDoesNotExist::new);
+        User followee = users.tryGet(usernameToFollow).orElseThrow(User.UserDoesNotExist::new);
 
         user.follow(followee);
-
         users.save(user);
-
     }
+
 }

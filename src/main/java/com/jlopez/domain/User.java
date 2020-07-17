@@ -45,7 +45,10 @@ public class User {
     public class CannotFollowYourself extends RuntimeException {
     }
 
-
     public class UserAlreadyFollowed extends RuntimeException {
     }
+
+    static public class UserDoesNotExist extends RuntimeException {
+    }
+
 }
