@@ -21,25 +21,26 @@ public class MakeAPost {
     }
 
     public void execute(String username, String message) {
-
-        Optional<User> linkedUser = tryToGetLinkedUser(message);
-
-        Post post;
-        if (linkedUser.isPresent()) {
-            post = new Post(message, linkedUser.get());
-        } else {
-            post = new Post(message);
-        }
+        Post post = createPost(message);
 
         posts.addPost(username, post);
+    }
+
+    Post createPost(String message) {
+        Optional<User> linkedUser = tryToGetLinkedUser(message);
+
+        if (linkedUser.isPresent()) {
+            return new Post(message, linkedUser.get());
+        }
+
+        return new Post(message);
     }
 
     private Optional<User> tryToGetLinkedUser(String message) {
         Pattern regularExpresionPattern = Pattern.compile("(?<=@)\\w+");
         Matcher matcher = regularExpresionPattern.matcher(message);
-        if (matcher.find()) {
-            return users.tryGet(matcher.group());
-        }
+
+        if (matcher.find()) { return users.tryGet(matcher.group()); }
 
         return Optional.ofNullable(null);
     }
